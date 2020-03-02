@@ -2,11 +2,13 @@
 #define DEBUG true
 
 #if DEBUG
-  #define sprintln(a)  (Serial.println(a))
-  #define sprint(a)    (Serial.print(a))
+  #define sprintln(a)   Serial.println(a)
+  #define sprint(a)     Serial.print(a)
+  #define serialBegin(x) Serial.begin(x)
 #else
   #define sprintln(a) 
   #define sprint(a)  
+  #define serialBegin(x)
 #endif
 
 #include <avr/pgmspace.h>
@@ -152,11 +154,8 @@ ISR(TIMER1_COMPA_vect) {
 /////////////////////////// Ciclo di Setup //////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 void setup() {
-  
 
-#if DEBUG
-  Serial.begin(115200);
-#endif
+  serialBegin(115200);
 
   pinMode(SW, INPUT_PULLUP);
   pinMode(DT, INPUT_PULLUP);
